@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const connectDB = (cb) => {
     mongoose
         .connect(
-            "mongodb+srv://keming:kruEfRuFRvtQv3EL@nodejs.yuqzrm5.mongodb.net/?retryWrites=true&w=majority&appName=NodeJs"
+            process.env.MONGODB_URI
         )
         .then((res) => {
             cb(res);

@@ -9,6 +9,7 @@ const { Readable } = require("stream");
 const openai = new OpenAI({
     organization: "org-aK31INTHatK12fFzkrmyBA7P",
     project: "proj_c9czXgbNEXJ76QhEX9mJtftz",
+    apiKey: process.env.OPENAI_KEY,
 });
 
 async function generateImage(msg, savePath) {
