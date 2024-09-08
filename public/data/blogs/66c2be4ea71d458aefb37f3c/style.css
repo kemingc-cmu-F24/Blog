@@ -1,0 +1,7 @@
+.car-details p {
+    margin: 5px 0;
+}
+.location, .time {
+    font-style: italic;
+    color: #555;
+}

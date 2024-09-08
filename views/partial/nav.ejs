@@ -1,0 +1,47 @@
+<nav class="nav-bar">
+  <div class="nav-left">
+    <div class="logo">
+      KC
+    </div>
+  </div>
+  <div class="nav-right">
+    <form class="nav-item" id="search-form">
+      <input type="text" name="keyword" placeholder="Search Text...">
+      <button>
+        <img src="/svg/search.svg" alt="Search"> </img>
+    </button>
+    </form>
+    <label class="menu">
+      <input id="dropDownBtn" type="checkbox" checked>
+      <div>
+          <span></span>
+          <span></span>
+      </div>
+  </label>
+    <!-- <a class="dribbble" href="https://dribbble.com/shots/6350574-Hamburger-switch-animation" target="_blank"><img src="https://cdn.dribbble.com/assets/dribbble-ball-mark-2bd45f09c2fb58dbbfb44766d5d1d07c5a12972d602ef8b32204d28fa3dda554.svg" alt=""></a> -->
+            <div class="nav-main collapse">
+    <a class="nav-item" <%= path == '/'?'disabled':'' %> href="/">Home</a>
+    <a class="nav-item">About</a>
+    <a class="nav-item" <%= path == '/project'?'disabled': '' %> href="/project">Project</a>
+    <a class="nav-item" <%= path == '/blog'?'disabled':'' %> href="/blog">Blog</a>
+  </div>
+  </div>
+</nav>
+
+<script>
+  $(function(){
+    $("#dropDownBtn").click(function(){
+      const checked = $(this).is(":checked");
+      const navMain = $(".nav-main");
+      // console.log(checked);
+      if(checked){
+        navMain.removeClass("expand");
+        navMain.addClass("collapse");
+      }
+      else{
+        navMain.removeClass("collapse");
+        navMain.addClass("expand");
+      }
+    })
+  })
+</script>

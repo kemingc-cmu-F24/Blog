@@ -1,0 +1,27 @@
+<!-- <script src="/js/img.js"></script> -->
+<div class="blog-card">
+  <a class="img-container" href="/blog/<%= blog._id %>">
+    <img src="/data/blogs/<%= blog._id %>/head-img.png" />
+  </a>
+  <div class="text-section">
+    <h2 class="title"><a href="/blog/<%= blog._id %>"><%= blog.title %></a></h2>
+    <p class="date"><%= blog.author  %> created at <%= new Date(blog.createdAt).toLocaleString() %></p>
+
+    <p class="tag-list">
+      <% if(blog.tags.length>0){ %>
+      <% for(let i = 0; i < blog.tags.length && i < 4; i++) { %> <span class="tag"><%=
+                blog.tags[i] %></span><% if(i < blog.tags.length - 1 && i < 3) { %>, <% }
+            %> <% } %>
+      <% } else{%>
+      No tags for this post.
+      <% } %>
+    </p>
+    <p class="description"><%= blog.description %></p>
+    <!-- <button onclick="$.ajax({
+      method: 'post',
+      url: '/blog/update',
+      data: {id:'<%= blog._id %>'}
+    })">Update</button> -->
+    <a class="view-more" href="/blog/<%= blog._id %>">View More</a>
+  </div>
+</div>

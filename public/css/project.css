@@ -1,0 +1,125 @@
+
+#poster {
+    position: relative;
+    height: 200px;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#poster-cover {
+    top: 0;
+    position: absolute;
+    display: inline-block;
+    height: 200px;
+    width: 100%;
+    background-color: black;
+    opacity: 0.7;
+}
+#related-blogs-container > h1 {
+    text-align: center;
+    /* background-color: var(--accent-color); */
+    color: var(--text-dark);
+    padding: 10px 0px;
+}
+#related-blogs > p{
+    color: var(--text-gray);
+    font-size: large;
+    padding: 30px;
+    text-align: center;
+}
+
+#poster > h1, p {
+    text-align: center;
+    color: var(--white-color);
+    z-index: 1;
+    margin: 0;
+}
+
+#poster > p{
+    font-style: italic;
+}
+
+#blog {
+    display: flex;
+}
+
+
+#content {
+    flex: 2;
+    padding: 20px 40px;
+    /* text-align: left; */
+}
+
+#content p{
+    text-align: left;
+    /* color: var(--text-dark);
+    margin: 10px;
+    text-indent: 20px; */
+}   
+#controls {
+    padding: 30px;
+}
+#controls > a {
+    /* background-color: var(--text-dark);
+    color: var(--white-color); */
+    padding: 10px 20px;
+    border: none;
+    font-size: large;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+}
+
+
+
+#related-blogs-container {
+    flex: 1;
+    font-size: small;
+    border: 1px solid var(--third-color);
+    margin-top: 20px;
+    margin-right: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.2);
+    height: max-content;
+}
+
+#related-blogs-container > h1 {
+    margin: 0;
+}
+#related-blogs > a {
+    height: 80px;
+}
+
+.blog-description{
+    font-style: italic;
+}
+
+.nav-neighbor{
+    display: flex;
+}
+.nav-neighbor > a{
+    cursor: pointer;
+}
+#related-blogs {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    #blog {
+        flex-direction: column;
+    }
+    #related-blogs-container {
+        margin: 20px;
+    }
+
+    #poster > h1, p {
+
+        margin: 20px;
+    }
+}

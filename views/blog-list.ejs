@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/blog-list.css" />
+  <link rel="stylesheet" href="/css/blog-card.css" />
+  <link rel="preload" href="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" as="script" crossorigin/>
+  <link rel="preload" href="https://lottie.host/2aac2263-d79f-426e-8407-084fe92a1b8a/mRqahRKA7P.json" as="fetch" crossorigin/>
+
+  <script src="/js/jquery.js"></script>
+  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+
+  <title>Blog</title>
+</head>
+
+<body>
+  <header><%- include("partial/nav.ejs", {path: path}) %></header>
+
+  <main>
+    <section id="robot-section">
+      <div id="robot-img-container">
+        <dotlottie-player src="https://lottie.host/2aac2263-d79f-426e-8407-084fe92a1b8a/mRqahRKA7P.json" background="transparent" speed="1" style="width: 200px; height: 200px;" loop autoplay></dotlottie-player>
+      </div>
+      <div id="robot-chat-container">
+        <div>
+          <h1>Welcome to My Blog !</h1>
+        </div>
+        <form id="chat-form" action="#">
+          <h3>You could ask me:</h2>
+            <div id="input">
+              <input name="msg" placeholder="Tell me about Keming's new car!" />
+              <button onclick="onSubmitChat()">Send</button>
+            </div>
+
+        </form>
+      </div>
+    </section>
+    <section>
+      <div id="category-container">
+        <% for(let categoryItem of categoryList) { %>
+        <a class="<%= category==categoryItem? 'activate': '' %>" href="/blog<%= categoryItem == 'All'?'':'?category='+categoryItem %>"> <%= categoryItem %> </a>
+        <% } %>
+      </div>
+      <div class="blogs">
+        <% for(let blog of blogs) { %>
+        <%- include("partial/blog-card.ejs", {blog: blog}) %>
+        <% } %>
+      </div>
+      <div id="pages">
+          <% for(let pageIndex of pageList){ %>
+            <a class="<%= page==pageIndex? 'activate': '' %>" href="/blog?page=<%= pageIndex %><%= category != "All" ? '&category=' + category: '' %>"><%= pageIndex %></a>
+            <% } %>
+      </div>
+    </section>
+  </main>
+</body>
+<script>
+  const chatForm = $("#chat-form");
+
+  $(function() {
+    const submitBtn = $("#chat-form button");
+  })
+
+  function onSubmitChat() {
+    // e.preventDefault();
+    const input = $("input[name='msg']");
+    const robotChatContainer = $("#robot-chat-container")
+    if (!input.val()) {
+      input.val(input.attr("placeholder"));
+    }
+    const msg = input.val();
+    input.val("");
+    chatForm.remove();
+    const responseElement = $("<div id='robot-response' class='response-animation'><p></p></div>");
+    const tryAgain = $("<button id='btn-try-again'>Try Agian</button>");
+
+    robotChatContainer.append(responseElement);
+    let responseAggregate = "";
+
+    fetch('/blog/ask', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "msg": msg,
+        })
+      })
+      .then(response => {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let receivedLength = 0;
+
+        return reader.read().then(function processText({
+          done,
+          value
+        }) {
+          if (done) {
+            tryAgain.click(function() {
+              responseElement.remove();
+              tryAgain.remove();
+              robotChatContainer.append(chatForm);
+            })
+            responseElement.append(tryAgain);
+
+            return;
+          }
+
+          const chunk = decoder.decode(value, {
+            stream: true
+          });
+          if (receivedLength == 0)
+            responseElement.removeClass("response-animation")
+
+          receivedLength += chunk.length;
+          const response = $("#robot-response>p");
+          responseAggregate += chunk;
+          response.html(responseAggregate);
+          return reader.read().then(processText);
+        });
+      })
+      .catch(err => {
+        const response = $("#robot-response>p");
+        response.html("<p style='color: red;'>Error when receiving response</p>");
+        responseElement.removeClass("response-animation")
+
+      });
+
+  }
+</script>
+
+</html>

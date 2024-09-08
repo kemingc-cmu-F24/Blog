@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/project-list.css" />
+  <link rel="stylesheet" href="/css/project-card.css" />
+  <link rel="preload" href="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" as="script" crossorigin />
+  <link rel="preload" href="https://lottie.host/3e0c97fa-ca3d-46d7-9742-880a418e288d/GNcfjvFgES.json" as="fetch" crossorigin />
+
+  <script src="/js/jquery.js"></script>
+  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+
+  <title>Blog</title>
+</head>
+
+<body>
+  <header><%- include("partial/nav.ejs", {path: path}) %></header>
+  </header>
+  <section id="robot-section">
+    <div id="robot-img-container">
+
+      <dotlottie-player src="https://lottie.host/3e0c97fa-ca3d-46d7-9742-880a418e288d/GNcfjvFgES.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>    </div>
+    <div id="robot-chat-container">
+      <div>
+        <h1>Welcome to My Project !</h1>
+      </div>
+      <form id="chat-form" action="#">
+        <h3>You could ask me:</h2>
+          <div id="input">
+            <input name="msg" placeholder="Show me your abilities!" />
+            <button onclick="onSubmitChat()">Send</button>
+          </div>
+
+      </form>
+    </div>
+  </section>
+  <section id="project-list-container">
+    <div id="techs-container">
+      <% for(let tech of techList) { %>
+      <a class="<%= techs.includes(tech)? 'activate': '' %>" value="<%= tech %>"> <%= tech %> </a>
+      <% } %>
+    </div>
+    <div id="partial">
+      <%- include("partial/project-list-partial", {projects: projects, page: page, pageList: pageList}) %>
+    </div>
+  </section>
+</body>
+<script>
+  $(function() {
+    $("#techs-container > a").click(changeTech);
+  })
+
+  function changeTech() {
+    const activate = $(this).hasClass("activate");
+
+    if (activate) {
+      $(this).removeClass("activate")
+    } else {
+      $(this).addClass("activate")
+    }
+    const techs = [];
+    let href = `/project?`;
+
+    $("#techs-container > a.activate").each(function(i) {
+      techs.push($(this).attr("value"))
+      if (i == 0)
+        href+=`techs=${encodeURIComponent($(this).attr("value"))}`
+    else
+        href+=`,${encodeURIComponent($(this).attr("value"))}`
+
+    });
+
+    const page = $("#page a.activate").attr("value");
+    if(page){
+      if(href.endsWith("?")){
+      href+="page=" + page;
+    }
+    else{
+      href+="&page=" + page;
+    }
+    }
+
+    history.pushState(null, '', href);    
+    // console.log(techs);
+    $("#project-list-container").addClass("loading");
+    $.ajax({
+      url: "/project/fetch-partial",
+      contentType: 'application/json',
+      method: "post",
+      data: JSON.stringify({
+        "techs": techs
+      }),
+      success: function(result) {
+        $("#partial").html(result);
+        $("#project-list-container").removeClass("loading");
+      }
+    })
+  }
+
+  function changePgae() {
+    const page = $(this).attr("value");
+    const techs = [];
+    $("#techs-container > a.activate").each(function() {
+      techs.push($(this).attr("value"))
+    });
+    // console.log(techs);
+    $("#project-list-container").addClass("loading");
+    $.ajax({
+      url: "/project/fetch-partial",
+      contentType: 'application/json',
+      method: "post",
+      data: JSON.stringify({
+        "techs": techs,
+        "page": page,
+      }),
+      success: function(result) {
+        $("#partial").html(result);
+        $("#project-list-container").removeClass("loading");
+      }
+    })
+  }
+
+  const chatForm = $("#chat-form");
+
+  $(function() {
+    const submitBtn = $("#chat-form button");
+  })
+
+  function onSubmitChat() {
+    // e.preventDefault();
+    const input = $("input[name='msg']");
+    const robotChatContainer = $("#robot-chat-container")
+    if (!input.val()) {
+      input.val(input.attr("placeholder"));
+    }
+    const msg = input.val();
+    input.val("");
+    chatForm.remove();
+    const responseElement = $("<div id='robot-response' class='response-animation'><p></p></div>");
+    const tryAgain = $("<button id='btn-try-again'>Try Agian</button>");
+
+    robotChatContainer.append(responseElement);
+    let responseAggregate = "";
+
+    fetch('/project/ask', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "msg": msg,
+        })
+      })
+      .then(response => {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let receivedLength = 0;
+
+        return reader.read().then(function processText({
+          done,
+          value
+        }) {
+          if (done) {
+            tryAgain.click(function() {
+              responseElement.remove();
+              tryAgain.remove();
+              robotChatContainer.append(chatForm);
+            })
+            responseElement.append(tryAgain);
+
+            return;
+          }
+
+          const chunk = decoder.decode(value, {
+            stream: true
+          });
+          if (receivedLength == 0)
+            responseElement.removeClass("response-animation")
+
+          receivedLength += chunk.length;
+          const response = $("#robot-response>p");
+          responseAggregate += chunk;
+          response.html(responseAggregate);
+          return reader.read().then(processText);
+        });
+      })
+      .catch(err => {
+        const response = $("#robot-response>p");
+        response.html("<p style='color: red;'>Error when receiving response</p>");
+        responseElement.removeClass("response-animation")
+
+      });
+
+  }
+</script>
+
+</html>

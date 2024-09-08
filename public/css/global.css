@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&display=swap");
+@import url("./color.css");
+
+@font-face {
+    font-family: "ParkLaneNF";
+    src: url("/fonts/ParkLaneNF.otf") format("opentype"),
+        url("/fonts/ParkLaneNF.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+input:focus{
+    outline: none;
+}
+a{
+    transition: all 0.2s ease-out;
+}
+a:hover{
+    color: var(--accent-color);
+}
+body:not(.markdown *), input, button {
+    font-family: "Open Sans", sans-serif;
+}
+
+
+body {
+    background-color: var(--secondary-color);
+    background-size: cover;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+h1:not(.markdown *),
+h2:not(.markdown *),
+h3:not(.markdown *) {
+    font-family: "Montserrat", sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color: var(--cta-blue);
+}
+@media (max-width: 768px){
+    main{
+        padding-top: 50px;
+    }
+}

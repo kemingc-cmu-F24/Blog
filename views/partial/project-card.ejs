@@ -1,0 +1,14 @@
+<a class="project-card" href="/project/<%= project._id %>">
+    <div class="img-container">
+        <img src="/data/projects/<%= project._id %>/head-img.png" />
+    </div>
+    <div class="text-section">
+        <h2><%= project.title %></h2>
+        <p class="tech-list">
+            <% for(let i = 0; i < project.techs.length; i++) { %> <%=
+            project.techs[i] %> <% if(i < project.techs.length - 1) { %> , <% }
+            %> <% } %>
+        </p>
+        <p class="project-description"><%= project.description %></p>
+    </div>
+</a>

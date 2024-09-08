@@ -1,0 +1,14 @@
+<div id="project-list">
+    <% for(let project of projects){ %> <%- include("project-card", {project:
+    project}) %> <% } %>
+</div>
+<div id="page">
+    <% for(let pageIndex of pageList){ %>
+    <a
+        onclick="changePage()"
+        class="<%= page==pageIndex? 'activate': '' %>"
+        value="<%= pageIndex %>"
+        ><%= pageIndex %></a
+    >
+    <% } %>
+</div>

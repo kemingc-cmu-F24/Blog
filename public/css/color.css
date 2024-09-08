@@ -1,0 +1,27 @@
+/* Color Variables */
+:root {
+    --primary-color: #2C3E50;
+    --accent-color: #3498DB;
+    --secondary-color: #ECF0F1;
+    --third-color: #dee1e1;
+    --white-blue: #e2edef;
+
+    --white-color: #FFFFFF;
+    --cyan-color: #1ABC9C;
+    --yellow-color: #F1C40F;
+    --text-dark: #2C3E50;
+    --text-lightdark: #374e64;
+
+    --text-gray: #656a70;
+    --text-light: #BDC3C7;
+
+    --light-blue:#0099ff;
+    --cta-blue: #2980B9;
+    --yellow-green: #6ee908;
+    --vibrant-green: #27AE60;
+    --light-green: #26cd6c;
+    --success-green: #27AE60;
+    --elegant-red: #911F21;
+
+}
+

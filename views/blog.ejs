@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/blog.css" />
+  <link rel="stylesheet" href="/data/blogs/<%= blog._id %>/style.css" />
+  <link rel="stylesheet" href="/css/blog-card-small.css" />
+  <link rel="stylesheet" href="/css/splendor.css" />
+
+  <script src="/js/jquery.js"></script>
+
+  <title><%= blog.title %></title>
+</head>
+
+<body>
+  <header><%- include("partial/nav.ejs", {path: path}) %></header>
+  <main>
+    <section id="poster" style="background-image: url('/data/blogs/<%=blog.id %>/head-img.png');">
+      <div id="poster-cover"></div>
+      <h1 id="blog-title"><%= blog.title %></h1>
+      <p><%= blog.createdAt < blog.updatedAt ? "Edited by " : "Created by " %><%= blog.author %> at <%= new Date(blog.updatedAt).toLocaleString() %></p>
+    </section>
+    <section id="blog">
+      <div id="content" class="markdown">
+        <p class="small blog-description">
+          "<%= blog.description %>"
+        </p>
+        <%- blog.content %>
+
+      </div>
+      <div id="related-blogs-container">
+        <h1>Related Blogs</h1>
+        <div id="related-blogs">
+
+        <% if (relatedBlogs.length > 0) {%>
+        <% for(let blog of relatedBlogs) { %>
+            <%- include("partial/blog-card-small.ejs", {blog: blog}) %>
+          <% } %>
+          <% }else{ %>
+            <p>This blog stands alone 😭</p>
+            <% } %>
+        </div>
+      </div>
+    </section>
+    <section id="controls">
+      <a onclick="window.history.back()">&lt Go Back</a>
+    </section>
+  </main>
+
+</html>

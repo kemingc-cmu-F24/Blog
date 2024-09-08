@@ -1,0 +1,12 @@
+<!-- <script src="/js/img.js"></script> -->
+<a class="blog-card" href="/blog/<%= blog._id %>">
+  <div class="blog-img-container">
+    <img src="/data/blogs/<%= blog._id %>/head-img.png" />
+  </div>
+  <div class="blog-text-section">
+    <p class="title" href="/blog/<%= blog._id %>">
+      <%= ((typeof maxLength != 'undefined') && (blog.title.length > maxLength))? blog.title.substring(0, maxLength) + "...":  blog.title %>
+    
+    </p>
+  </div>
+</a>

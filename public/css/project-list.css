@@ -1,0 +1,249 @@
+
+#robot-section {
+    /* background: url("/img/blog/blue-wave.svg");
+    background-size: contain; */
+    background-color: var(--cta-blue);
+    color: var(--white-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 0px;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+button{
+    cursor: pointer;
+}
+#robot-section h1{
+    color: var(--white-color);
+}
+
+#robot-chat-container {
+    flex: 1;
+}
+
+#input input {
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    padding-right: 40px;
+    width: 100%;
+}
+
+#input {
+    width: 80%;
+    position: relative;
+    box-sizing: border-box;
+}
+
+#input > button {
+    font-weight: 400;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    transform: translate(0, 50%);
+    color: var(--cta-blue);
+    background: none;
+    border: none;
+    z-index: 2;
+}
+
+#robot-img-container {
+    flex: 1;
+    height: 50%;
+    /* margin-bottom:80px; */
+
+    /* overflow: hidden; */
+}
+
+#robot-img-container dotlottie-player{
+    float: right;
+    height: 100%;
+}
+
+#robot-response {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    padding: 20px;
+    width: 80%;
+    border-radius: 10px;
+    transition: all 0.5s ease-in-out;
+}
+
+.response-animation {
+    animation: colorChange 0.5s ease-out infinite alternate;
+}
+
+@keyframes colorChange {
+    0%{
+        /* opacity: 0; */
+        background-color: var(--secondary-color);
+    }
+    100%{
+        /* opacity: 1; */
+        background-color: rgb(197, 197, 197);
+    }
+    
+}
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+    
+}
+
+#btn-try-again{
+    color: var(--white-color);
+    background-color: var(--elegant-red);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 20px;    
+    align-self:flex-end;
+}
+
+#project-list {
+ display: flex;
+ gap: 60px;
+ padding: 30px;
+ width: 80%;
+margin: auto;
+flex-wrap: wrap;
+align-items: center;
+justify-content: center;
+}
+
+#project-list > a{
+    max-height: 400px;
+    min-height: 400px;
+    min-width: 300px;
+    max-width: 300px;
+}
+
+#techs-container{
+    flex-wrap: wrap;
+}
+
+#techs-container, #page{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+#techs-container > a, #page > a{
+    text-align: center;
+    border: 1px solid var(--third-color);
+    /* width: 30px; */
+    padding: 10px 20px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    cursor: pointer;
+}
+#project-list-container{
+    position: relative;
+}
+
+.loading::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.05;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    animation: fadeIn 1 ease-out 1 forwards;
+}
+
+.loading::after{
+    content: '';
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    background-image: url("/img/project/bouncing-circles.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    animation: fadeIn 0.5 ease-out 1 forwards;
+}
+
+
+
+
+#techs-container> a:hover, #page > a:hover{
+    background-color: var(--white-blue);
+}
+
+
+#techs-container> a.activate{
+    background-color: var(--cta-blue);
+    color: var(--white-color);
+}
+
+#page > a.activate{
+    background-color: var(--cta-blue);
+    color: var(--white-color);
+    pointer-events: none;
+}
+
+@media(max-width: 768px){
+    #robot-section {
+        flex-direction: column;
+        padding: 40px;
+        align-items: center;
+        height: max-content;
+    }
+
+    #robot-chat-container{
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+    }
+
+    #robot-chat-container h1{
+        text-align: center;
+    }
+
+    #robot-response {
+        padding: 20px;
+        box-sizing: border-box;
+        min-width: 100%;
+    }
+    #input {
+        width: 90%;
+    }
+
+    #chat-form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* #chat-form > button {
+        transform: translate(-100%, 50%);
+        z-index: 1;
+    } */
+
+    #techs-container {
+        font-size: small;
+        flex-wrap: wrap;
+    }
+    #project-list {
+        flex-direction: column;
+       }
+       
+
+}
