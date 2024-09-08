@@ -24,7 +24,7 @@ app.use("/project", projectRouter);
 
 connectDB((res) => {
     console.log("Connected to mongodb.");
-    app.listen(3000, () => {
+    app.listen(80, () => {
         console.log("Listening port 3000.");
         // const description =
         //     "I recently bought a new Honda Accord, my first car, so I no longer have to rely on ride-hailing services. It was definitely expensive, but I hope this car will help me explore the city more easily and open up new opportunities.";
