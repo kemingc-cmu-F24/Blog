@@ -1,200 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/css/global.css" />
+        <link rel="stylesheet" href="/css/index.css" />
+        <link rel="stylesheet" href="/css/nav.css" />
+        <link rel="stylesheet" href="/css/blog-card-small.css" />
+        <link rel="stylesheet" href="/css/project-card.css" />
+        <script src="/js/jquery.js"></script>
+        <title>Kenny Chen</title>
+    </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/global.css" />
-  <link rel="stylesheet" href="/css/index.css" />
-  <link rel="stylesheet" href="/css/nav.css" />
-  <link rel="stylesheet" href="/css/blog-card-small.css" />
-  <link rel="stylesheet" href="/css/project-card.css" />
-  <script src="/js/jquery.js"></script>
-  <title>Kenny Chen</title>
-</head>
+    <body>
+        <header><%- include("partial/nav.ejs") %></header>
+        <main>
+            <div class="hero">
+                <h1>Keming Chen</h1>
+                <div id="profile">
+                    <img
+                        src="/img/profile.jpeg"
+                        alt="Kenny Chen"
+                        id="profile-img"
+                    />
+                </div>
 
-<body>
-  <header><%- include("partial/nav.ejs") %></header>
-  <main>
-    <div class="hero">
-      <h1>Keming Chen</h1>
-      <div id="profile">
-        
-        <img src="/img/profile.jpeg" alt="Kenny Chen" id="profile-img" />
-        
-      </div>
-      
-      <h1 id="role-text">
-        I'm a
-        <span id="changable-text"></span>
-      </h1>
-      <div id="describe-text"></div>
-      <div id="education-container">
-        <div class="education">
-          <div>
-            <img src="/img/cmu-logo.png" alt="CMU-logo"  width="100" height="100">
-          </div>
-          <div>
-            <p><b>Carnegie Mellon University Silicon Valley</b></p>
-            <p>
-            <i>Software Engineering</i> (Aug 2024 - Dec 2025)</p>
-          </div>
-        </div>
-      </div>
-      <button class="btn-learn-more">Learn More</button>
-    </div>
-    <div>
-      
-    </div>
-    <div class="cards">
-      <div class="cards-left">
-        <div class="latest-project">
-          <h1>
-            Latest Projects
-          </h1>
-          <div class="project-cards">
-            <% for(let project of recentProjects) { %>
-              <%- include("partial/project-card.ejs", { project: project }) %>
-            <% } %>
-          </div>
-          <a class="view-more" href="/project">View More</a>
+                <h1 id="role-text">
+                    I'm a
+                    <span id="changable-text"></span>
+                </h1>
+                <div id="describe-text"></div>
+                <div id="education-container">
+                    <div class="education">
+                        <div>
+                            <img
+                                src="/img/cmu-logo.png"
+                                alt="CMU-logo"
+                                width="100"
+                                height="100"
+                            />
+                        </div>
+                        <div>
+                            <p>
+                                <b>Carnegie Mellon University Silicon Valley</b>
+                            </p>
+                            <p>
+                                <i>Software Engineering</i> (Aug 2024 - Dec
+                                2025)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-learn-more">Learn More</button>
+            </div>
+            <div class="latest-project">
+                <h1>Latest Projects</h1>
+                <div class="project-cards">
+                    <% for(let project of recentProjects) { %> <%-
+                    include("partial/project-card.ejs", { project: project }) %>
+                    <% } %>
+                </div>
+                <a class="view-more" href="/project">More Projects</a>
+            </div>
 
-        </div>
-      </div>
-      <div class="cards-right">
-        <div class="blogs-container">
-          <h1>
-            Blogs
-          </h1>
-          <div class="blogs">
-            <% for(let blog of recentBlogs){ %>
-              <%- include("partial/blog-card-small", {blog: blog, maxLength: 35}) %>
-              <!-- <li class="blog-item">
-                <a href="/blog/<%= blog._id %>">
-                  <%= blog.title %>
-                </a>
+            <div class="latest-blog">
+                <div>
+                    <p>Latest Blog:</p>
+                    <!-- <img src="/img/blog.png" width="32" height="32" /> -->
+                    <a href="/blog/<%= recentBlogs[0].id%>"
+                        ><%= recentBlogs[0].title %></a
+                    >
+                </div>
+
+                <a href="/blog" class="btn-more">More Blogs</a>
+            </div>
+        </main>
+
+        <footer>
+            <div class="contact">
+                <h1>Contact Me</h1>
                 <p>
-                  <%= new Date(blog.createdAt).toLocaleDateString(); %>
+                    If you're interested in having me join your company, work
+                    with me as a freelancer
                 </p>
-              </li> -->
-            <% } %>
-          </div>
-          <a class="view-more" href="/blog">View More</a>
-          </div>
-      </div>
-    </div>
-    <div class="contact">
-      <h1>
-        Contact Me
-      </h1>
-      <p>
-        If you're interested in having me join your company, work with me as a freelancer
-      </p>
-      <p>
-        Or simply want to be friends!
-      </p>
-      <div class="icons">
-        <div class="icon-container">
-          <a href="https://github.com/kemingc-cmu-F24">
-            <img src="/img/icons/github.png">
-          </a>
-        </div>
-        <div class="icon-container">
-          <a href="https://www.linkedin.com/in/kenny-chen-718104323/">
-            <img src="/img/icons/linkedin.png">
+                <p>Or simply want to be friends!</p>
+                <div class="icons">
+                    <div class="icon-container">
+                        <a href="https://github.com/kemingc-cmu-F24">
+                            <img src="/img/icons/github.png" />
+                        </a>
+                    </div>
+                    <div class="icon-container">
+                        <a
+                            href="https://www.linkedin.com/in/kenny-chen-718104323/"
+                        >
+                            <img src="/img/icons/linkedin.png" />
+                        </a>
+                    </div>
+                    <div class="icon-container">
+                        <img src="/img/icons/qq.png" />
+                    </div>
+                    <div class="icon-container">
+                        <img src="/img/icons/wechat.png" />
+                    </div>
+                </div>
+                <h3>or</h3>
+                <a href="mailto:ukeming@icloud.com" id="mail"
+                    >ukeming@icloud.com</a
+                >
+            </div>
+        </footer>
+    </body>
 
-          </a>
-        </div>
-        <div class="icon-container">
-          <img src="/img/icons/qq.png">
-        </div>
-        <div class="icon-container">
-          <img src="/img/icons/wechat.png">
-        </div>
-      </div>
-      <h3>
-        or
-      </h3>
-      <a href="mailto:ukeming@icloud.com" id="mail">ukeming@icloud.com</a>
-    </div>
-  </main>
-</body>
+    <script>
+        const roleList = [
+            [
+                "Web Developer",
+                "Dedicated to crafting intuitive and impactful digital experiences.",
+                "",
+            ],
+            [
+                "Creative Technologist",
+                "Blending design and technology to build innovative digital solutions.",
+                "",
+            ],
+            [
+                "Problem Solver",
+                "Passionate about turning complex challenges into simple, elegant solutions.",
+                "",
+            ],
+            [
+                "Back-End Developer",
+                "Specializing in database management, API development, and server-side logic.",
+                "",
+            ],
+        ];
+        const changableText = $("#changable-text");
+        const describeText = $("#describe-text");
+        let roleIndex = 0;
 
-<script>
-  const roleList = [
-    [
-      "Web Developer",
-      "Dedicated to crafting intuitive and impactful digital experiences.",
-      "",
-    ],
-    [
-      "Creative Technologist",
-      "Blending design and technology to build innovative digital solutions.",
-      "",
-    ],
-    [
-      "Problem Solver",
-      "Passionate about turning complex challenges into simple, elegant solutions.",
-      "",
-    ],
-    [
-      "Back-End Developer",
-      "Specializing in database management, API development, and server-side logic.",
-      "",
-    ],
-  ];
-  const changableText = $("#changable-text");
-  const describeText = $("#describe-text");
-  let roleIndex = 0;
+        $(function () {
+            const textDisappear = () => {
+                let currentText = changableText.text();
+                let disappearIndex = currentText.length - 1;
+                describeText.removeClass("fade-in-animation");
+                describeText.addClass("fade-out-animation");
+                const charDisappear = () =>
+                    setTimeout(() => {
+                        if (disappearIndex > 0) {
+                            currentText =
+                                currentText.substring(0, disappearIndex--) +
+                                "_";
+                            changableText.text(currentText);
+                            charDisappear();
+                        } else {
+                            changableText.text("_");
+                            textAppear();
+                        }
+                    }, 75);
+                charDisappear();
+            };
 
-  $(function() {
-    const textDisappear = () => {
-      let currentText = changableText.text();
-      let disappearIndex = currentText.length - 1;
-      describeText.removeClass("fade-in-animation");
-      describeText.addClass("fade-out-animation");
-      const charDisappear = () =>
-        setTimeout(() => {
-          if (disappearIndex > 0) {
-            currentText =
-              currentText.substring(0, disappearIndex--) +
-              "_";
-            changableText.text(currentText);
-            charDisappear();
-          } else {
-            changableText.text("_");
+            const textAppear = () => {
+                const [newText, describe, href] =
+                    roleList[roleIndex++ % roleList.length];
+                // console.log(describe);
+                describeText.text(describe);
+                describeText.removeClass("fade-out-animation");
+                describeText.addClass("fade-in-animation");
+                let appearIndex = 0;
+                const charAppear = () =>
+                    setTimeout(() => {
+                        if (appearIndex < newText.length) {
+                            changableText.text(
+                                newText.substring(0, appearIndex++) + "_"
+                            );
+                            charAppear();
+                        } else {
+                            changableText.text(newText);
+                        }
+                    }, 75);
+                charAppear();
+            };
+
             textAppear();
-          }
-        }, 75);
-      charDisappear();
-    };
 
-    const textAppear = () => {
-      const [newText, describe, href] =
-      roleList[roleIndex++ % roleList.length];
-      // console.log(describe);
-      describeText.text(describe);
-      describeText.removeClass("fade-out-animation");
-      describeText.addClass("fade-in-animation");
-      let appearIndex = 0;
-      const charAppear = () =>
-        setTimeout(() => {
-          if (appearIndex < newText.length) {
-            changableText.text(
-              newText.substring(0, appearIndex++) + "_"
-            );
-            charAppear();
-          } else {
-            changableText.text(newText);
-          }
-        }, 75);
-      charAppear();
-    };
-
-    textAppear();
-
-    setInterval(textDisappear, 8000);
-  });
-</script>
-
+            setInterval(textDisappear, 8000);
+        });
+    </script>
 </html>
