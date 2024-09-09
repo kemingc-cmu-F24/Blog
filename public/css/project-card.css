@@ -25,7 +25,9 @@
     color: var(--text-gray);
     font-size: small;
     height: 20px;
-    overflow-x: scroll;
+    overflow: hidden;
+    font-size: small;
+    font-style: italic;
 }
 
 .text-section {
@@ -43,6 +45,8 @@
     color: var(--text-dark);    
     padding: 0px;
     height: 100px;
+    scrollbar-width: none;
+
 }
 
 .text-section h2 {
