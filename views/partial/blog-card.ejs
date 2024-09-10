@@ -7,7 +7,7 @@
     <h2 class="title"><a href="/blog/<%= blog._id %>"><%= blog.title %></a></h2>
     <p class="date"><%= blog.author  %> created at <%= new Date(blog.createdAt).toLocaleString() %></p>
 
-    <p class="tag-list">
+    <!-- <p class="tag-list">
       <% if(blog.tags.length>0){ %>
       <% for(let i = 0; i < blog.tags.length && i < 4; i++) { %> <span class="tag"><%=
                 blog.tags[i] %></span><% if(i < blog.tags.length - 1 && i < 3) { %>, <% }
@@ -15,7 +15,7 @@
       <% } else{%>
       No tags for this post.
       <% } %>
-    </p>
+    </p> -->
     <p class="description"><%= blog.description %></p>
     <!-- <button onclick="$.ajax({
       method: 'post',
