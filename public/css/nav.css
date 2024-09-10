@@ -6,7 +6,7 @@
     justify-content: space-between;
     
     height: 50px;
-    width: 100vw;
+    width: 100%;
     box-sizing: border-box;
     /* max-height: 40vh; */
     overflow: hidden;
